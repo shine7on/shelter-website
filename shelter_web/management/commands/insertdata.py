@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from shelter_web.models import Breed
 
 import requests
 import os
@@ -7,22 +8,19 @@ from dotenv import load_dotenv
 class Command(BaseCommand):
 
     def handle(self,*arg, **karg):
-        self.stdout.write(self.style.SUCCESS('Data inserted!'))
-
-    def insertdata(self):
         load_dotenv() 
         api = os.getenv("API_KEY")
         headers = {'x-api-key': api}
-        # breed = 'poodle'
-        base_url = 'https://api.thedogapi.com/v1/breeds'
+
         # url = f'{base_url}/search?q={breed}'
+        base_url = 'https://api.thedogapi.com/v1/breeds'
+
+        responses = requests.get(base_url, headers=headers).json()
+        breeds = []
+        for response in responses:
+            breeds.append(response['name'])
         
-        response = requests.get(base_url, headers=headers)
-        breeds = response.json()
-        names = ''
         for breed in breeds:
-            names =  names + breed['name'] + ', ' 
-        
-        names -= ', '
-        print(names)
-        return names
+            Breed.objects.create(breed=breed)
+            
+        self.stdout.write(self.style.SUCCESS('Data inserted!'))
