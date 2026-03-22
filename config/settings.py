@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shelter_web'
+    'shelter_web',
+    "django_pint_field",
 ]
 
 MIDDLEWARE = [
