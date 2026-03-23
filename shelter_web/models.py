@@ -8,9 +8,6 @@ class Breed(models.Model):
     def __str__(self):
         return self.breed
     
-
-    
-    
 class Dog(models.Model):
     SexType = models.TextChoices("SexType", "Female Male")
     StatusType = models.TextChoices("StatusType", 'Adopted Pending Not-Adopted')
@@ -21,9 +18,11 @@ class Dog(models.Model):
 
     name = models.CharField(max_length=100)
     breed = models.ForeignKey(Breed, on_delete=models.CASCADE)
-    age = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(35)])
+    birthday = models.DateField(null=True, blank=True)
+    age_year = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(35)])
+    age_month = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(11)])
     weight = models.FloatField(default=0, validators=[MinValueValidator(0)])
-    weight_unit = models.CharField(default=' kg',choices=UnitType)
+    weight_unit = models.CharField(default='kg',choices=UnitType)
     sex = models.CharField(choices=SexType)
     status = models.CharField(choices=StatusType)
     description = models.CharField(max_length=200)
