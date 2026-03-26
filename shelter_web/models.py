@@ -28,11 +28,13 @@ class Dog(models.Model):
     status = models.CharField(max_length=11, choices=StatusType)
     description = models.TextField(max_length=200)
 
+    # model-level validation
     def clean(self):
         if self.birthday == None and self.age_year == None and self.age_month == None:
             raise ValidationError('Add either birthday or age (year/month)')
         elif self.age_year < 0 or not 0 <= self.age_month <= 12:
             raise ValidationError('Invalid Value')
     
+    # gives name instead of dog_object
     def __str__(self):
         return self.name
