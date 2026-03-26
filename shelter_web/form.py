@@ -7,7 +7,11 @@ from datetime import date
 class SuffixNumberInput(forms.NumberInput):
     def __init__(self,suffix='',attrs=None):
         self.suffix = suffix
-        super().__init__(attrs)
+        # make sure e,E,+,- do not work while admin is filling the form
+        default_attrs = {'onkeydown': 'return event.key !== "e" && event.key !== "E" && event.key !== "+" && event.key !== "-"'}
+        if attrs:
+            default_attrs.update(attrs)
+        super().__init__(default_attrs)
 
     def render(self,name,value,attrs=None,renderer=None):
         input_html = super().render(name, value, attrs, renderer)

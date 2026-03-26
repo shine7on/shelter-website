@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Breed(models.Model):
@@ -26,3 +27,12 @@ class Dog(models.Model):
     sex = models.CharField(max_length=6, choices=SexType)
     status = models.CharField(max_length=11, choices=StatusType)
     description = models.TextField(max_length=200)
+
+    def clean(self):
+        if self.birthday == None and self.age_year == None and self.age_month == None:
+            raise ValidationError('Add either birthday or age (year/month)')
+        elif self.age_year < 0 or not 0 <= self.age_month <= 12:
+            raise ValidationError('Invalid Value')
+    
+    def __str__(self):
+        return self.name
