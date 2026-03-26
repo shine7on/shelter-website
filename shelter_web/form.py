@@ -45,20 +45,23 @@ class DogForm(forms.ModelForm):
             "age_year": "Used only when exact birthday is unknown. Example: 6 years 10 months",
         }
         widgets = {
-            'age_year': SuffixNumberInput(suffix="year(s)"),
-            "age_month": SuffixNumberInput(suffix="month(s)"),
+            'age_year': SuffixNumberInput(suffix="year(s)", attrs={'style': 'width: 80px'}),
+            "age_month": SuffixNumberInput(suffix="month(s)", attrs={'style': 'width: 80px'}),
+            'weight': forms.NumberInput(attrs={'style': 'width: 100px'}),
         }
     
     def clean(self):
         cleaned_data = super().clean()
 
+        # birthday logic: 
+        # calculate the duration based on the birthday
+        # or manually put year, month by admins
         birthday = cleaned_data.get("birthday")
         age_year = cleaned_data.get("age_year")
         age_month = cleaned_data.get("age_month")
 
         today = date.today()
         
-        # birthday logic here
         if birthday:
             if birthday > today:
                 raise forms.ValidationError("Birthday cannot be in the future.")
@@ -84,5 +87,20 @@ class DogForm(forms.ModelForm):
         
         cleaned_data["age_year"] = age_year
         cleaned_data["age_month"] = age_month
+
+
+
+        # weigth logic: 
+        # convert it to kg if admins put lb/g value
+        weight = cleaned_data.get('weight')
+        unit = cleaned_data.get('weight_unit')
+
+        if unit == 'g':
+            weight = weight/1000
+        elif unit == 'lb':
+            weight = round(0.453592*weight)
+        
+        cleaned_data["weight"] = weight
+        cleaned_data['weight_unit'] = 'kg'
 
         return cleaned_data

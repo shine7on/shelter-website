@@ -7,12 +7,18 @@ admin.site.register(Breed)
 
 @admin.register(Dog)
 class DogAdmin(admin.ModelAdmin):
-    list_display = ('name', 'age_display', 'breed', 'sex', 'status')
+    # how to display multiple vars in the one line
+    def age_display(self, obj):
+        return f'{obj.age_year}y {obj.age_month}m'
+    
+    # change the name of variable to display
+    age_display.short_description = 'age'
+    age_display.short_description = 'weight[kg]'
+
+    list_display = ('name', 'age_display', 'breed', 'weight', 'sex', 'status')
     search_fields = ('name', 'status')
     list_filter = ('sex', 'status', 'breed')
     form = DogForm
     fields = ('name', 'birthday', ('age_year', 'age_month'), 'breed', 'sex', 'status', ('weight', 'weight_unit'), 'description')
 
-    # how to display multiple vars in the one line
-    def age_display(self, obj):
-        return f'{obj.age_year}y {obj.age_month}m'
+    
