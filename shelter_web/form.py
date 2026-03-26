@@ -74,7 +74,9 @@ class DogForm(forms.ModelForm):
                 age_month = 12 + age_month
         else:
             if age_year == None and age_month == None:
-                raise forms.ValidationError("message")
+                raise forms.ValidationError("Add age (year/month)")
+            elif age_year < 0 or age_month < 0 or age_month > 11:
+                raise forms.ValidationError("Invalid input")
             elif age_year != None and age_month == None:
                 age_month = 0
             elif age_year == None and age_month != None:
