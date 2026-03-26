@@ -2,6 +2,8 @@ from django import forms
 from shelter_web.models import Dog
 from django.utils.safestring import mark_safe
 
+from datetime import date
+
 class SuffixNumberInput(forms.NumberInput):
     def __init__(self,suffix='',attrs=None):
         self.suffix = suffix
@@ -35,14 +37,50 @@ class DogForm(forms.ModelForm):
                   'weight_unit', 
                   'description']
         labels = {
-            "age_year": "Age (Year/Month)",
+            "age_year": "Age",
             "age_month": '',
             'weight_unit': '',
         }
         help_texts = {
-            "name": "Some useful help text.",
+            "age_year": "Used only when exact birthday is unknown. Example: 6 years 10 months",
         }
         widgets = {
             'age_year': SuffixNumberInput(suffix="year(s)"),
             "age_month": SuffixNumberInput(suffix="month(s)"),
         }
+    
+    def clean(self):
+        cleaned_data = super().clean()
+
+        birthday = cleaned_data.get("birthday")
+        age_year = cleaned_data.get("age_year")
+        age_month = cleaned_data.get("age_month")
+
+        today = date.today()
+        
+        # birthday logic here
+        if birthday:
+            if birthday > today:
+                raise forms.ValidationError("Birthday cannot be in the future.")
+            
+            age_year = today.year - birthday.year
+            age_month = today.month - birthday.month
+
+            if today.day < birthday.day:
+                age_month -= 1
+            
+            if age_month < 0:
+                age_year -= 1
+                age_month = 12 + age_month
+        else:
+            if age_year == None and age_month == None:
+                raise forms.ValidationError("message")
+            elif age_year != None and age_month == None:
+                age_month = 0
+            elif age_year == None and age_month != None:
+                age_year = 0
+        
+        cleaned_data["age_year"] = age_year
+        cleaned_data["age_month"] = age_month
+
+        return cleaned_data
