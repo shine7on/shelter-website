@@ -45,6 +45,7 @@ class DogForm(forms.ModelForm):
             "age_year": "Used only when exact birthday is unknown. Example: 6 years 10 months",
         }
         widgets = {
+            # I can do more styling if I add css file
             'age_year': SuffixNumberInput(suffix="year(s)", attrs={'style': 'width: 80px'}),
             "age_month": SuffixNumberInput(suffix="month(s)", attrs={'style': 'width: 80px'}),
             'weight': forms.NumberInput(attrs={'style': 'width: 100px'}),
@@ -78,12 +79,14 @@ class DogForm(forms.ModelForm):
         else:
             if age_year == None and age_month == None:
                 raise forms.ValidationError("Add age (year/month)")
-            elif age_year < 0 or age_month < 0 or age_month > 11:
-                raise forms.ValidationError("Invalid input")
-            elif age_year != None and age_month == None:
+            
+            if age_year != None and age_month == None:
                 age_month = 0
             elif age_year == None and age_month != None:
                 age_year = 0
+        
+            if age_year < 0 or age_month < 0 or age_month > 11:
+                raise forms.ValidationError("Invalid input")
         
         cleaned_data["age_year"] = age_year
         cleaned_data["age_month"] = age_month
@@ -98,7 +101,7 @@ class DogForm(forms.ModelForm):
         if unit == 'g':
             weight = weight/1000
         elif unit == 'lb':
-            weight = round(0.453592*weight)
+            weight = round(0.453592*weight, 2)
         
         cleaned_data["weight"] = weight
         cleaned_data['weight_unit'] = 'kg'
