@@ -5,13 +5,23 @@
         <meta name="'viewpoint" content="width=device-width, initial-scale=1.0">
         <title>ShelterA</title>
     </head>
-    <header>
-        Shelter A
+    <header class = 'flex-row bg-sky-500'>
+        <div class="flex">
+            Shelter A
+        </div>
+        <div class="flex ">
+            <p>Meet Our Dogs</p>
+            <p>Adopt</p>
+            <button class="donate">Donate</button>
+        </div>
     </header>
     <body>
+        <!-- Add filter / Convertor to lb/kg / -->
+        <form class="search" method="'GET" action="">
+        </form>
         <ul>
             {% for dog in dogs %}
-            <li><b>{{dog.id}} : {{dog.name}}, {{dog.sex}}, {{dog.status}}</b></li>
+            <li><b>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</b></li>
             {% endfor %}
         </ul>
     </body>
