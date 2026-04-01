@@ -5,4 +5,4 @@ __pycache__/
 db.sqlite3
 .env
 node_modules
-/src/output.css
+shelter_web/static/css/output.css

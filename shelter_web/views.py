@@ -11,3 +11,7 @@ def hello_world(request):
 def all_dogs_views(request):
     dogs = Dog.objects.all()
     return render(request, 'shelter_web/template_demo.html', {'dogs': dogs})
+
+def all_dogs_searchable(request):
+    dogs = Dog.objects.all()
+    return render(request, 'shelter_web/template_demo.html', {'dogs': dogs})
