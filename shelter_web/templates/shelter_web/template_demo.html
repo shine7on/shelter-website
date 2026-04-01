@@ -2,20 +2,22 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="'viewpoint" content="width=device-width, initial-scale=1.0">
+        <meta name="'viewport" content="width=device-width, initial-scale=1.0">
         <title>ShelterA</title>
+        {% load static %}
+        <link href="{% static 'css/output.css' %}" rel="stylesheet">
     </head>
-    <header class = 'flex-row'>
-        <div class="flex">
-            Shelter A
-        </div>
-        <div class="flex ">
-            <p>Meet Our Dogs</p>
-            <p>Adopt</p>
-            <button class="donate">Donate</button>
-        </div>
-    </header>
     <body>
+        <header class = 'flex-row bg-amber-200'>
+            <div class="flex bg-amber-300">
+                Shelter A
+            </div>
+            <div class="flex ">
+                <p>Meet Our Dogs</p>
+                <p>Adopt</p>
+                <button class="donate">Donate</button>
+            </div>
+        </header>
         <!-- Add filter / Convertor to lb/kg / -->
         <form class="search" method="'GET" action="">
         </form>
@@ -24,8 +26,10 @@
             <li><b>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</b></li>
             {% endfor %}
         </ul>
+        
+        <footer>
+            Copyright Shinon &copy; 2026
+        </footer>
     </body>
-    <footer>
-        Copyright Shinon &copy; 2026
-    </footer>
+
 </html>
