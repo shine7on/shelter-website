@@ -2,25 +2,26 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="'viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ShelterA</title>
-        {% load static %}
-        <link href="{% static 'css/output.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="../../static/css/output.css">
     </head>
     <body>
+       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+  Test Button
+</button>
         <header class = 'flex h-20 items-center bg-blue-300'>
             <div class="basis-2/3 text-3xl margin-left ml-2">
                 Shelter A
             </div>
-            <div class="basis-1/3 bg-cyan-300  flex items-center justify-end gap-5 mr-3 text-18">
+            <div class="basis-1/3 flex items-center justify-end gap-5 mr-3">
                 <a>Meet Our Dogs</a>
                 <a>Adopt</a>
-                <button class="bg-amber-800 h-10">Donate</button>
+                <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Donate</button>
             </div>
         </header>
         <!-- Add filter / Convertor to lb/kg / -->
-        <form class="search" method="'GET" action="">
-        </form>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Donate</button>
         <ul>
             {% for dog in dogs %}
             <li><b>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</b></li>
@@ -28,7 +29,7 @@
         </ul>
         
         <footer>
-            Copyright Shinon &copy; 2026
+            <div class='flex h-20px bg-pink-200 text-center'>Copyright Shinon &copy; 2026</div>
         </footer>
     </body>
 
