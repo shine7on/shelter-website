@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Dog
 
 
@@ -12,6 +12,7 @@ def all_dogs_views(request):
     dogs = Dog.objects.all()
     return render(request, 'shelter_web/template_demo.html', {'dogs': dogs})
 
-def all_dogs_searchable(request):
+def dog_list_api(request):
     dogs = Dog.objects.all()
-    return render(request, 'shelter_web/template_demo.html', {'dogs': dogs})
+    listDogs = dogs.values('id','name','status','sex') 
+    return JsonResponse(list(listDogs), safe=False)

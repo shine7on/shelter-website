@@ -18,7 +18,8 @@
             </div>
         </header>
         <!-- Add filter / Convertor to lb/kg / -->
-        <ul>
+        <input type="text" id="filter-search" placeholder="Search By Name"/>
+        <ul id="dog-list">
             {% for dog in dogs %}
             <li><b>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</b></li>
             {% endfor %}
@@ -27,6 +28,17 @@
         <footer>
             <div class='flex h-30 bg-pink-200 text-center'>Copyright Shinon &copy; 2026</div>
         </footer>
+
+        <script>
+            const searchbar = document.getElementById('filter-search')
+            const listitems = document.getElementById('dog-list')
+
+            searchbar.addEventListener('input', fetchDogs);
+
+            function fetchDogs() {
+                console.log('fetching...')
+            };
+        </script>
     </body>
 
 </html>
