@@ -36,6 +36,7 @@ def dog_list_api(request):
 # Display a detail page of dog
 def dog_detail(request, dog_id):
     dog = Dog.objects.get(id=dog_id)
+    breeds = Breed.objects.all()
 
-    return render(request, 'shelter_web/dog_detail.html', {'dog':dog})
+    return render(request, 'shelter_web/dog_detail.html', {'dog':dog, 'breeds':breeds})
     
