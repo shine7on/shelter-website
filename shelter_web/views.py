@@ -16,6 +16,26 @@ def all_dogs_views(request):
 # Filter data 
 def dog_list_api(request):
     dogs = Dog.objects.all()
+
+    # age year
+    age_year = request.GET.get('age_year', '')
+    if age_year:
+        dogs = dogs.filter(age_year=age_year)
+        age_year = request.GET.get('age_year', '')
+    
+    # age month
+    age_month = request.GET.get('age_month', '')
+    if age_month:
+        dogs = dogs.filter(age_month=age_month)
+        age_month = request.GET.get('age_month', '')
+    
+    # weight
+    weight = request.GET.get('weight', '')
+    if weight:
+        dogs = dogs.filter(weight)
+        weight = request.GET.get('weight', '')
+
+
     sex = request.GET.get('sex', '')
     if sex:
         dogs = dogs.filter(sex=sex)
@@ -29,7 +49,7 @@ def dog_list_api(request):
     if breed:
         dogs = dogs.filter(breed__id=breed)
 
-    listDogs = dogs.values('id','name','status','sex') 
+    listDogs = dogs.values('id','name','age_year','age_month','weight','status','sex') 
     return JsonResponse(list(listDogs), safe=False)
 
 
