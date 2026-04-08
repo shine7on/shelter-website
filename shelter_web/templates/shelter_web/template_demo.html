@@ -38,7 +38,8 @@
         </select>
         <ul id="dog-list">
             {% for dog in dogs %}
-            <li><b>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</b></li>
+            <li><a href="{% url 'dog_detail' dog.id %}">{{dog.name}}</a></li>
+            <li>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</li>
             {% endfor %}
         </ul>
         
