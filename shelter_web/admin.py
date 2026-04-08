@@ -22,6 +22,6 @@ class DogAdmin(admin.ModelAdmin):
     search_fields = ('name', 'status')
     list_filter = ('sex', 'status', 'breed')
     form = DogForm
-    fields = ('name', 'birthday', ('age_year', 'age_month'), 'breed', 'sex', 'status', ('weight', 'weight_unit'), 'description')
+    fields = ('name', 'birthday', ('age_year', 'age_month'), 'breed', 'sex', 'status', ('weight', 'weight_unit'), 'description', 'photo')
 
     
