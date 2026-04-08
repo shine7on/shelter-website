@@ -50,15 +50,30 @@
             const searchbar = document.getElementById('filter-search')
             const listitems = document.getElementById('dog-list')
 
+            const filter_sex = document.getElementById('filter-sex')
+            const filter_status = document.getElementById('filter-status')
+            const filter_breed = document.getElementById('filter-breed')
+
             searchbar.addEventListener('input', fetchDogs);
 
+            filter_sex.addEventListener('change', fetchDogs);
+            filter_status.addEventListener('change', fetchDogs);
+            filter_breed.addEventListener('change', fetchDogs);
+
             function fetchDogs() {
-                fetch('/dogapi')
+                const params = new URLSearchParams({
+                    search: searchbar.value,
+                    sex:    filter_sex.value,
+                    status: filter_status.value,
+                    breed:  filter_breed.value,
+                })
+
+                fetch(`/dogapi?${params}`)
                     .then(res => res.json())
                     .then(data => {
                         console.log(data)
                     })
-            };
+            }
         </script>
     </body>
 
