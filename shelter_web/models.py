@@ -28,6 +28,8 @@ class Dog(models.Model):
     status = models.CharField(max_length=11, choices=StatusType)
     description = models.TextField(max_length=200)
 
+    photo = models.ImageField(upload_to='dogs/', null=True, blank=True)
+
     # model-level validation
     def clean(self):
         if self.birthday == None and self.age_year == None and self.age_month == None:
