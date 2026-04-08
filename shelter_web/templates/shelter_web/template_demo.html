@@ -19,6 +19,23 @@
         </header>
         <!-- Add filter / Convertor to lb/kg / -->
         <input type="text" id="filter-search" placeholder="Search By Name"/>
+        <select id="filter-sex">
+            <option value="">All</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select>
+        <select id="filter-status">
+            <option value="">All</option>
+            <option value="Adopted">Adopted</option>
+            <option value="Pending">Pending</option>
+            <option value="Not-Adopted">Not-Adopted</option>
+        </select>
+        <select id="filter-breed">
+            <option value="">All</option>
+            {% for breed in breeds %}
+            <option value=`{{ breed.id }}`>{{breed}}</option>
+            {% endfor %}
+        </select>
         <ul id="dog-list">
             {% for dog in dogs %}
             <li><b>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</b></li>
@@ -36,7 +53,11 @@
             searchbar.addEventListener('input', fetchDogs);
 
             function fetchDogs() {
-                console.log('fetching...')
+                fetch('/dogapi')
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                    })
             };
         </script>
     </body>
