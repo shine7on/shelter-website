@@ -38,8 +38,7 @@
         </select>
         <ul id="dog-list">
             {% for dog in dogs %}
-            <li><a href="{% url 'dog_detail' dog.id %}">{{dog.name}}</a></li>
-            <li>{{dog.id}} : {{dog.name}}, {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</li>
+            <li><a href="{% url 'dog_detail' dog.id %}">{{dog.name}}</a>: {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</li>
             {% endfor %}
         </ul>
         
@@ -72,8 +71,9 @@
                 fetch(`/dogapi?${params}`)
                     .then(res => res.json())
                     .then(data => {
+                        console.log(data)
                         listitems.innerHTML = data.map(dog => 
-                            `<li>${dog.id}, ${dog.name}, ${dog.sex}, ${dog.status}</li>`
+                            `<li><a href='/dog/${dog.id}/'>${dog.name}</a>: ${dog.age}, ${dog.weight}, ${dog.sex}, ${dog.status}</li>`
                         ).join('')
                     })
             }
