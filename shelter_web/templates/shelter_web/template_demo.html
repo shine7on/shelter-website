@@ -71,7 +71,9 @@
                 fetch(`/dogapi?${params}`)
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data)
+                        listitems.innerHTML = data.map(dog => 
+                            `<li>${dog.id}, ${dog.name}, ${dog.sex}, ${dog.status}</li>`
+                        ).join('')
                     })
             }
         </script>
