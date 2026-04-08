@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .models import Dog, Breed
 
@@ -21,19 +21,16 @@ def dog_list_api(request):
     age_year = request.GET.get('age_year', '')
     if age_year:
         dogs = dogs.filter(age_year=age_year)
-        age_year = request.GET.get('age_year', '')
     
     # age month
     age_month = request.GET.get('age_month', '')
     if age_month:
         dogs = dogs.filter(age_month=age_month)
-        age_month = request.GET.get('age_month', '')
     
     # weight
     weight = request.GET.get('weight', '')
     if weight:
         dogs = dogs.filter(weight)
-        weight = request.GET.get('weight', '')
 
 
     sex = request.GET.get('sex', '')
@@ -55,8 +52,8 @@ def dog_list_api(request):
 
 # Display a detail page of dog
 def dog_detail(request, dog_id):
-    dog = Dog.objects.get(id=dog_id)
+    dog = get_object_or_404(Dog, id=dog_id)
     breeds = Breed.objects.all()
 
-    return render(request, 'shelter_web/dog_detail.html', {'dog':dog, 'breeds':breeds})
+    return render(request, 'shelter_web/dog_detail.html', {'dog':dog})
     

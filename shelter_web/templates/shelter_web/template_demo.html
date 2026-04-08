@@ -73,7 +73,7 @@
                     .then(data => {
                         console.log(data)
                         listitems.innerHTML = data.map(dog => 
-                            `<li><a href='/dog/${dog.id}/'>${dog.name}</a>: ${dog.age}, ${dog.weight}, ${dog.sex}, ${dog.status}</li>`
+                            `<li><a href='/dog/${dog.id}/'>${dog.name}</a>: ${dog.age_year} year(s), ${dog.age_month} month(s), ${dog.weight}, ${dog.sex}, ${dog.status}</li>`
                         ).join('')
                     })
             }
