@@ -31,3 +31,11 @@ def dog_list_api(request):
 
     listDogs = dogs.values('id','name','status','sex') 
     return JsonResponse(list(listDogs), safe=False)
+
+
+# Display a detail page of dog
+def dog_detail(request, dog_id):
+    dog = Dog.objects.get(id=dog_id)
+
+    return render(request, 'shelter_web/dog_detail.html', {'dog':dog})
+    
