@@ -13,7 +13,21 @@ def all_dogs_views(request):
     breeds = Breed.objects.all()
     return render(request, 'shelter_web/template_demo.html', {'dogs': dogs, 'breeds': breeds})
 
+# Filter data 
 def dog_list_api(request):
     dogs = Dog.objects.all()
+    sex = request.GET.get('sex', '')
+    if sex:
+        dogs = dogs.filter(sex=sex)
+
+    # now try adding status and breed yourself..
+    status = request.GET.get('status', '')
+    if status:
+        dogs = dogs.filter(status=status)
+    
+    breed = request.GET.get('breed', '')
+    if breed:
+        dogs = dogs.filter(breed__id=breed)
+
     listDogs = dogs.values('id','name','status','sex') 
     return JsonResponse(list(listDogs), safe=False)
