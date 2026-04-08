@@ -27,6 +27,9 @@
             <li>Status: {{ dog.status }}</li>
             <li>Description: {{ dog.description }}</li>
         </ul>
+        {% if dog.photo %}
+            <img src="{{ dog.photo.url }}">
+        {% endif %}
         
         <footer>
             <div class='flex h-30 bg-pink-200 text-center'>Copyright Shinon &copy; 2026</div>
