@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +39,13 @@
         </select>
         <ul id="dog-list">
             {% for dog in dogs %}
-            <li><a href="{% url 'dog_detail' dog.id %}">{{dog.name}}</a>: {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</li>
+            <li>
+                {% if dog.photo %}
+                 <img src="{{ dog.photo.url }}" width="200" height="300">
+                {% else %}
+                <img src="{% static 'images/default.png' %}" width="200" height="300">
+                {% endif %}
+                <a href="{% url 'dog_detail' dog.id %}">{{dog.name}}</a>: {{dog.age_year}}, {{dog.weight}}, {{dog.sex}}, {{dog.status}}</li>
             {% endfor %}
         </ul>
         
@@ -71,11 +78,15 @@
                 fetch(`/dogapi?${params}`)
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data)
-                        listitems.innerHTML = data.map(dog => 
-                            `<li><a href='/dog/${dog.id}/'>${dog.name}</a>: ${dog.age_year} year(s), ${dog.age_month} month(s), ${dog.weight}, ${dog.sex}, ${dog.status}</li>`
-                        ).join('')
-                    })
+                        listitems.innerHTML = data.map(dog => {
+                            const photoHtml = dog.photo
+                                ? `<img src="/media/${dog.photo}" width="200" height="300">`
+                                : `<img src="/static/images/default.png" width="200" height="300">`
+                        
+                            return `<li>${photoHtml}
+                                <a href='/dog/${dog.id}/'>${dog.name}</a>: ${dog.age_year} year(s), ${dog.age_month} month(s), ${dog.weight}, ${dog.sex}, ${dog.status}</li>`
+                    }).join('')
+                })
             }
         </script>
     </body>
