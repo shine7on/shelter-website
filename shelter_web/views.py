@@ -46,7 +46,7 @@ def dog_list_api(request):
     if breed:
         dogs = dogs.filter(breed__id=breed)
 
-    listDogs = dogs.values('id','name','age_year','age_month','weight','status','sex') 
+    listDogs = dogs.values('id','name','age_year','age_month','weight','status','sex', 'photo') 
     return JsonResponse(list(listDogs), safe=False)
 
 
