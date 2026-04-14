@@ -31,7 +31,7 @@ def dog_list_api(request):
     weight = request.GET.get('weight', '')
     if weight:
         dogs = dogs.filter(weight)
-
+        
 
     sex = request.GET.get('sex', '')
     if sex:
