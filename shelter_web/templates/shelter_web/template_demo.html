@@ -103,7 +103,7 @@
                             return `<div class="rounded-xl border border-gray-200 shadow-sm overflow-hidden">${photoHtml}
                                     <a href='/dog/${dog.id}/' class="font-medium text-base">${dog.name}</a>
                                     <div class="p-3">
-                                        <p class="text-sm text-gray-500 mt-1">${dog.breed} ·${dog.age_year}y ${dog.age_month}m · ${dog.weight}kg · ${dog.sex}</p>
+                                        <p class="text-sm text-gray-500 mt-1">${dog.breed__breed} · ${dog.age_year}y ${dog.age_month}m · ${dog.weight.toFixed(1)}kg · ${dog.sex}</p>
                                         <span class='text-xs px-2 py-1 rounded-full mt-2 inline-block ${statusHtml}'>${dog.status}</span>
                                     </div>
                                     </div>`
