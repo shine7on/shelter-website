@@ -56,4 +56,15 @@ def dog_detail(request, dog_id):
     breeds = Breed.objects.all()
 
     return render(request, 'shelter_web/dog_detail.html', {'dog':dog})
-    
+
+
+# Home page
+'''
+def dog_detail(request, dog_id):
+    dog = get_object_or_404(Dog, id=dog_id)
+    breeds = Breed.objects.all()
+    return render(request, 'shelter_web/dog_detail.html', {'dog':dog})
+
+
+# adoptation form page
+'''
