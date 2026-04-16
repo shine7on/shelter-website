@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Dog, Breed
+from .models import Dog, Breed, Adoptation
 from .form import DogForm
 
 # Register your models here.
 admin.site.register(Breed)
+admin.site.register(Adoptation)
 
 @admin.register(Dog)
 class DogAdmin(admin.ModelAdmin):

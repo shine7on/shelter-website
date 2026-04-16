@@ -40,3 +40,18 @@ class Dog(models.Model):
     # gives name instead of dog_object
     def __str__(self):
         return self.name
+    
+
+class Adoptation(models.Model):
+    HousingType = models.TextChoices('Housing', 'Own Rent')
+
+    first_name = models.CharField(max_length=100, blank=False)
+    last_name = models.CharField(max_length=100, blank=False)
+    street = models.CharField(blank=False)
+    city = models.CharField(blank=False)
+    # state = models.CharField(blank=False, choices=)
+    email = models.EmailField(blank=False)
+    interested_dog = models.CharField(blank=False)
+    phone = models.IntegerField(max_length=10, blank=False)
+    housing = models.IntegerField(choices=HousingType)
+    signiture = models.ImageField()
