@@ -1,49 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-    {% load static %}
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ShelterA</title>
-        <link rel="stylesheet" href="../../static/css/output.css">
-    </head>
-    <body class="bg-gray-50 min-h-screen flex flex-col">
-        <header class="sticky top-0 z-50 bg-gray-300/60 backdrop-blur-md border-b border-gray-200">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex h-16 items-center justify-between">
+{% extends "base.html" %}
+{% load static %}
+{% block title %}All Dogs{% endblock %}
 
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-2 text-teal-600 font-semibold">
-                    <span class="sr-only">Home</span>
-                    <!-- keep your svg -->
-                    <svg class="h-7 w-7 text-teal-600" viewBox="0 0 28 24" fill="currentColor">
-                    <path d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78C23.7557 10.3549 21.7729 10.9599 20.11 12.1147C20.014 12.1842 19.9138 12.2477 19.81 12.3047H19.67C19.5662 12.2477 19.466 12.1842 19.37 12.1147C17.6924 10.9866 15.7166 10.3841 13.695 10.3841C11.6734 10.3841 9.6976 10.9866 8.02 12.1147C7.924 12.1842 7.8238 12.2477 7.72 12.3047H7.58C7.4762 12.2477 7.376 12.1842 7.28 12.1147C5.6171 10.9599 3.6343 10.3549 1.61 10.3847H0.41Z"/>
-                    </svg>
-                    <span class="text-lg">ShelterA</span>
-                </a>
-
-                <div class="flex items-center gap-8">
-                    <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-                        <a href="#" class="hover:text-gray-900 transition">Dogs</sa>
-                        <a href="#" class="hover:text-gray-900 transition">Adopt</a>
-                    </nav>
-                    <a href="#"
-                    class="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg
-                            hover:bg-teal-700 transition shadow-sm">
-                    Donate
-                    </a>
-
-                    <!-- mobile menu -->
-                    <button class="md:hidden p-2 rounded-lg hover:bg-gray-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                    </button>
-                </div>
-                </div>
-            </div>
-        </header>
+{% block content %}
         <!--  Convertor to lb/kg  -->
 
         <div class="max-w-xl mx-auto w-full px-6 mt-6 ml-6">
@@ -62,7 +21,6 @@
                 <img class="w-52 h-52 mx-auto rounded-full object-cover shadow-md ring-4 ring-white"
                 src="{% static 'images/default.png' %}">
             {% endif %}
-
             
 
             <h1 class="mt-5 text-3xl font-bold text-gray-800">{{ dog.name }}</h1>
@@ -83,25 +41,4 @@
             </div>
 
         </div>
-        </main>
-        
-        <footer class="bg-neutral-primary-soft rounded-base shadow-xs border border-default m-4">
-            <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-            <span class="text-sm text-body sm:text-center">© 2026 <a href="https://flowbite.com/" class="hover:underline">Shelter A</a>. All Rights Reserved.
-            </span>
-            <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-body sm:mt-0">
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Meet Dogs</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Adopt</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Donate</a>
-                </li>
-            </ul>
-            </div>
-        </footer>
-    </body>
-
-</html>
+{% endblock %}

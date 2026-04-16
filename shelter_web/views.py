@@ -11,7 +11,7 @@ def hello_world(request):
 def all_dogs_views(request):
     dogs = Dog.objects.all()
     breeds = Breed.objects.all()
-    return render(request, 'shelter_web/template_demo.html', {'dogs': dogs, 'breeds': breeds})
+    return render(request, 'shelter_web/all_dogs.html', {'dogs': dogs, 'breeds': breeds})
 
 # Filter data 
 def dog_list_api(request):
