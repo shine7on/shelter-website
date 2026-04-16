@@ -24,7 +24,7 @@
 
                 <div class="flex items-center gap-8">
                     <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-                        <a href="/" class="hover:text-gray-900">Dogs</a>
+                        <a href={% url 'dogs' %} class="hover:text-gray-900">Dogs</a>
                         <a href="#" class="hover:text-gray-900">Adopt</a>
                     </nav>
 
@@ -49,7 +49,7 @@
             <span class="text-sm text-body sm:text-center">© 2026 <a href="https://flowbite.com/" class="hover:underline">Shelter A</a>. All Rights Reserved. </span> 
             <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-body sm:mt-0"> 
                 <li> 
-                    <a href="javascript:history.back()" class="hover:underline me-4 md:me-6">Meet Dogs</a> 
+                    <a href="{% url 'dogs' %}" class="hover:underline me-4 md:me-6">Meet Dogs</a> 
                 </li> 
                 <li> 
                     <a href="#" class="hover:underline me-4 md:me-6">Adopt</a> 
