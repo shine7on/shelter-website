@@ -7,5 +7,6 @@ urlpatterns = [
     path('hello', views.hello_world, name='hello_world'),
     path('dog', views.all_dogs_views, name='dogs'),
     path('dogapi', views.dog_list_api, name='dogs_api'),
-    path('dog/<int:dog_id>/', views.dog_detail, name='dog_detail')
+    path('dog/<int:dog_id>/', views.dog_detail, name='dog_detail'),
+    path('form', views.adopt_form, name='adopt_form')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
