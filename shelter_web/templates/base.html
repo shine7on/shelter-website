@@ -29,7 +29,7 @@
                         <!-- <a href="{% url 'adopt_form' %}" class="hover:text-gray-900">Adopt</a> -->
                     </nav>
 
-                    <a href="#" class="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-teal-700">
+                    <a href="{% url 'adopt_form' %}" class="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-teal-700">
                         Adopt
                     </a>
                 </div>
@@ -52,12 +52,12 @@
                 <li> 
                     <a href="{% url 'dogs' %}" class="hover:underline me-4 md:me-6">Meet Dogs</a> 
                 </li> 
-                <!-- <li> 
-                    <a href="#" class="hover:underline me-4 md:me-6">Adopt</a> 
-                </li> -->
                 <li> 
+                    <a href="{% url 'adopt_form' %}" class="hover:underline me-4 md:me-6">Adopt</a> 
+                </li>
+                <!-- <li> 
                     <a href="#" class="hover:underline">Donate</a> 
-                </li> 
+                </li> -->
             </ul> 
         </div>
     </footer>
