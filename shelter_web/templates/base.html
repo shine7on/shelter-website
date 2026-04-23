@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}ShelterA{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script> 
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
@@ -15,7 +16,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
 
-                <a href="/" class="flex items-center gap-2 text-teal-600 font-semibold">
+                <a href="{% url 'dogs' %}" class="flex items-center gap-2 text-teal-600 font-semibold">
                     <svg class="h-7 w-7" viewBox="0 0 28 24" fill="currentColor">
                         <path d="M0.41 10.3847C1.14777 7.4194 2.85643 4.7861 5.2639 2.90424C7.6714 1.02234 10.6393 0 13.695 0C16.7507 0 19.7186 1.02234 22.1261 2.90424C24.5336 4.7861 26.2422 7.4194 26.98 10.3847H25.78Z"/>
                     </svg>
@@ -25,11 +26,11 @@
                 <div class="flex items-center gap-8">
                     <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
                         <a href="{% url 'dogs' %}" class="hover:text-gray-900">Dogs</a>
-                        <a href="{% url 'adopt_form' %}" class="hover:text-gray-900">Adopt</a>
+                        <!-- <a href="{% url 'adopt_form' %}" class="hover:text-gray-900">Adopt</a> -->
                     </nav>
 
                     <a href="#" class="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-teal-700">
-                        Donate
+                        Adopt
                     </a>
                 </div>
 
@@ -51,9 +52,9 @@
                 <li> 
                     <a href="{% url 'dogs' %}" class="hover:underline me-4 md:me-6">Meet Dogs</a> 
                 </li> 
-                <li> 
+                <!-- <li> 
                     <a href="#" class="hover:underline me-4 md:me-6">Adopt</a> 
-                </li>
+                </li> -->
                 <li> 
                     <a href="#" class="hover:underline">Donate</a> 
                 </li> 

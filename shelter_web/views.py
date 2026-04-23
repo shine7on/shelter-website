@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import Dog, Breed
+from .models import Dog, Breed, Adoptation
+from .form import AdoptionForm
 
 
 # Create your views here.
@@ -60,4 +61,29 @@ def dog_detail(request, dog_id):
 
 # adoptation form page
 def adopt_form(request):
-    return render(request, 'shelter_web/form.html')
+    if request.method == 'POST':
+        form = AdoptionForm(request.POST)
+        if form.is_valid():
+            Adoptation.objects.create(
+                first_name = form.cleaned_data['first_name'],
+                last_name = form.cleaned_data['last_name'],
+                email = form.cleaned_data['email'],
+                phone = form.cleaned_data['phone'],
+                street = form.cleaned_data['street'],
+                city = form.cleaned_data['city'],
+                state = form.cleaned_data['state'],
+                zip = form.cleaned_data['zip_code'],
+                housing = form.cleaned_data['housing_type'],
+                yard = form.cleaned_data['has_yard'],
+                interested_dog = form.cleaned_data['dog'].name,
+                comment = form.cleaned_data['notes'],
+            )
+            return redirect('success')
+    else:
+        form = AdoptionForm()
+        
+    return render(request, 'shelter_web/form.html', {'form': form})
+
+
+def submission_success(request):
+    return render(request, 'shelter_web/submission_success.html')

@@ -1,52 +1,137 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}All Dogs{% endblock %}
+{% block title %}Adopt a Dog{% endblock %}
 
 {% block content %}
-<div class="flex flex-col mx-auto mt-3 max-w-md p-8 bg-white border border-red-200 rounded-2xl">
-  <h2 class="text-lg font-medium text-gray-900 mb-6">Adoption Form</h2>
 
-  <!-- First & Last Name -->
-  <div class="grid grid-cols-2 gap-4 mt-5">
-    <div class="relative mb-6 px-3">
-      <input type="text" id="fname" placeholder="First Name"
-        class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-    <div class="relative px-3">
-      <input type="text" id="lname" placeholder="Last Name"
-        class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-    <div class="relative px-3">
-        <input type="email" id="email" placeholder="Email"
-        class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-    <div class="relative mb-6 px-3">
-        <input type="tel" id="phone" placeholder="Phone Number"
-        class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-    <div class="relative mb-6 px-3">
-    <input type="text" id="street" placeholder="Street"
-      class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-    <div class="relative mb-6 px-3">
-        <input type="text" id="city" placeholder="City"
-        class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-    <div class="relative mb-6 px-3">
-    <input type="text" id="street" placeholder="State"
-      class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-    <div class="relative mb-6 px-3">
-    <input type="text" id="housing" placeholder="Housing"
-      class="block w-full py-2.5 text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 focus:border-violet-500 focus:outline-none focus:ring-0" />
-    </div>
-  </div>
+<div class="min-h-screen bg-stone-50 flex items-start justify-center px-4 py-12">
+  <div class="w-full max-w-2xl bg-white rounded-3xl shadow-sm overflow-hidden">
 
-  <!-- Submit -->
-  <div class="px-3 mt-5">
-    <button type="submit" class="bg-teal-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-teal-700">
-      Submit
-    </button>
+    <!-- Header -->
+    <div class="bg-emerald-900 px-10 py-9 relative">
+      <h1 class="font-serif text-2xl font-semibold text-white tracking-tight">Adoption Application</h1>
+      <p class="text-emerald-300 text-sm font-light mt-1">Fill out the form and we'll be in touch within 2–3 business days.</p>
+      <span class="absolute right-9 top-1/2 -translate-y-1/2 text-5xl opacity-20">🐾</span>
+    </div>
+
+    <!-- Body -->
+    <div class="px-10 py-9">
+      <form method="post" action="">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <ul class="bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-6 text-sm text-red-600 space-y-1">
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <!-- Personal Info -->
+        <p class="text-xs font-medium tracking-widest uppercase text-emerald-800 mb-4">Personal Information</p>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.first_name.id_for_label }}">First Name</label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}<p class="text-xs text-red-500 mt-1">{{ form.first_name.errors|join:", " }}</p>{% endif %}
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.last_name.id_for_label }}">Last Name</label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}<p class="text-xs text-red-500 mt-1">{{ form.last_name.errors|join:", " }}</p>{% endif %}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}<p class="text-xs text-red-500 mt-1">{{ form.email.errors|join:", " }}</p>{% endif %}
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.phone.id_for_label }}">Phone</label>
+            {{ form.phone }}
+            {% if form.phone.errors %}<p class="text-xs text-red-500 mt-1">{{ form.phone.errors|join:", " }}</p>{% endif %}
+          </div>
+        </div>
+
+        <hr class="border-stone-100 my-7">
+
+        <!-- Address -->
+        <p class="text-xs font-medium tracking-widest uppercase text-emerald-800 mb-4">Address</p>
+
+        <div class="flex flex-col gap-1 mb-4">
+          <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.street.id_for_label }}">Street Address</label>
+          {{ form.street }}
+          {% if form.street.errors %}<p class="text-xs text-red-500 mt-1">{{ form.street.errors|join:", " }}</p>{% endif %}
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mb-4">
+          <div class="col-span-1 flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.city.id_for_label }}">City</label>
+            {{ form.city }}
+            {% if form.city.errors %}<p class="text-xs text-red-500 mt-1">{{ form.city.errors|join:", " }}</p>{% endif %}
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.state.id_for_label }}">State</label>
+            {{ form.state }}
+            {% if form.state.errors %}<p class="text-xs text-red-500 mt-1">{{ form.state.errors|join:", " }}</p>{% endif %}
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.zip_code.id_for_label }}">ZIP</label>
+            {{ form.zip_code }}
+            {% if form.zip_code.errors %}<p class="text-xs text-red-500 mt-1">{{ form.zip_code.errors|join:", " }}</p>{% endif %}
+          </div>
+        </div>
+
+        <hr class="border-stone-100 my-7">
+
+        <!-- Living Situation -->
+        <p class="text-xs font-medium tracking-widest uppercase text-emerald-800 mb-4">Living Situation</p>
+
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.housing_type.id_for_label }}">Housing Type</label>
+            {{ form.housing_type }}
+            {% if form.housing_type.errors %}<p class="text-xs text-red-500 mt-1">{{ form.housing_type.errors|join:", " }}</p>{% endif %}
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.has_yard.id_for_label }}">Do you have a yard?</label>
+            {{ form.has_yard }}
+            {% if form.has_yard.errors %}<p class="text-xs text-red-500 mt-1">{{ form.has_yard.errors|join:", " }}</p>{% endif %}
+          </div>
+        </div>
+
+        <hr class="border-stone-100 my-7">
+
+        <!-- Dog Selection -->
+        <p class="text-xs font-medium tracking-widest uppercase text-emerald-800 mb-4">Dog You're Interested In</p>
+
+        <div class="flex flex-col gap-1 mb-4">
+          <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.dog.id_for_label }}">Select a Dog</label>
+          {{ form.dog }}
+          {% if form.dog.errors %}<p class="text-xs text-red-500 mt-1">{{ form.dog.errors|join:", " }}</p>{% endif %}
+        </div>
+
+        <div class="flex flex-col gap-1 mb-4">
+          <label class="text-xs font-medium text-gray-400 uppercase tracking-wide" for="{{ form.notes.id_for_label }}">Anything else you'd like us to know?</label>
+          {{ form.notes }}
+          {% if form.notes.errors %}<p class="text-xs text-red-500 mt-1">{{ form.notes.errors|join:", " }}</p>{% endif %}
+        </div>
+
+        <!-- Submit -->
+        <div class="flex items-center justify-between mt-8">
+          <p class="text-xs text-gray-400 max-w-xs leading-relaxed">We review every application carefully and will reach out soon.</p>
+          <button type="submit" class="bg-emerald-900 hover:bg-emerald-800 active:scale-95 text-white text-sm font-medium px-7 py-3 rounded-xl transition-all duration-150">
+            Submit Application →
+          </button>
+        </div>
+
+      </form>
+    </div>
+
   </div>
 </div>
+
 {% endblock %}

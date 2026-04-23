@@ -1,5 +1,5 @@
 from django import forms
-from shelter_web.models import Dog
+from shelter_web.models import Dog, Adoptation
 from django.utils.safestring import mark_safe
 
 from datetime import date
@@ -111,3 +111,117 @@ class DogForm(forms.ModelForm):
         cleaned_data['weight_unit'] = 'kg'
 
         return cleaned_data
+
+
+# Shared Tailwind classes
+INPUT_CLASS = (
+    "w-full bg-stone-50 border-0 rounded-lg px-3 py-2.5 "
+    "text-sm text-gray-900 focus:ring-2 focus:ring-emerald-700 outline-none"
+)
+SELECT_CLASS = (
+    "w-full bg-stone-50 border-0 rounded-lg px-3 py-2.5 "
+    "text-sm text-gray-900 focus:ring-2 focus:ring-emerald-700 outline-none cursor-pointer"
+)
+TEXTAREA_CLASS = (
+    "w-full bg-stone-50 border-0 rounded-lg px-3 py-2.5 "
+    "text-sm text-gray-900 focus:ring-2 focus:ring-emerald-700 outline-none resize-y min-h-[90px]"
+)
+
+
+class AdoptionForm(forms.Form):
+    # --- Personal Info ---
+    first_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Jane'}),
+    )
+    last_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Doe'}),
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': INPUT_CLASS, 'placeholder': 'jane@example.com'}),
+    )
+    phone = forms.CharField(
+        max_length=20,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': '(555) 000-0000'}),
+    )
+
+    # --- Address ---
+    STATE_CHOICES = [
+        ('', 'Select one...'),
+        ('yes_fenced', 'Yes, fenced'),
+        ('yes_unfenced', 'Yes, unfenced'),
+        ('no', 'No'),
+    ]
+
+    street = forms.CharField(
+        max_length=200,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': '123 Main St'}),
+    )
+    city = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': 'Springfield'}),
+    )
+    state = forms.ChoiceField(
+        choices = [('', 'Select a state...')] + [(s, s) for s in Adoptation.StateType],
+        widget=forms.Select(attrs={'class': SELECT_CLASS}),
+    )
+    zip_code = forms.CharField(
+        max_length=10,
+        widget=forms.TextInput(attrs={'class': INPUT_CLASS, 'placeholder': '62701'}),
+    )
+
+    # --- Living Situation ---
+    HOUSING_CHOICES = [
+        ('', 'Select one...'),
+        ('house', 'House'),
+        ('apartment', 'Apartment'),
+        ('condo', 'Condo'),
+        ('townhouse', 'Townhouse'),
+        ('other', 'Other'),
+    ]
+    housing_type = forms.ChoiceField(
+        choices=HOUSING_CHOICES,
+        widget=forms.Select(attrs={'class': SELECT_CLASS}),
+    )
+
+    YARD_CHOICES = [
+        ('', 'Select one...'),
+        ('yes_fenced', 'Yes, fenced'),
+        ('yes_unfenced', 'Yes, unfenced'),
+        ('no', 'No'),
+    ]
+    has_yard = forms.ChoiceField(
+        choices=YARD_CHOICES,
+        widget=forms.Select(attrs={'class': SELECT_CLASS}),
+    )
+    
+
+    # --- Dog Selection ---
+    dog = forms.ModelChoiceField(
+        queryset=Dog.objects.filter(status='Not-Adopted'), 
+        empty_label='Select a dog...',
+        widget=forms.Select(attrs={'class': SELECT_CLASS}),
+    )
+
+    notes = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={
+            'class': TEXTAREA_CLASS,
+            'placeholder': 'Tell us a bit about your lifestyle, experience with dogs, etc.',
+        }),
+    )
+
+    # --- Validation ---
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone', '')
+        digits = ''.join(filter(str.isdigit, phone))
+        if len(digits) < 10:
+            raise forms.ValidationError("Please enter a valid phone number.")
+        return phone
+
+    def clean_zip_code(self):
+        zip_code = self.cleaned_data.get('zip_code', '')
+        if not zip_code.isdigit() or len(zip_code) not in (5, 9):
+            raise forms.ValidationError("Enter a valid ZIP code (5 or 9 digits).")
+        return zip_code

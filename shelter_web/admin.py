@@ -1,10 +1,9 @@
 from django.contrib import admin
 from .models import Dog, Breed, Adoptation
-from .form import DogForm
+from .form import DogForm, AdoptionForm
 
 # Register your models here.
 admin.site.register(Breed)
-admin.site.register(Adoptation)
 
 @admin.register(Dog)
 class DogAdmin(admin.ModelAdmin):
@@ -25,4 +24,11 @@ class DogAdmin(admin.ModelAdmin):
     form = DogForm
     fields = ('name', 'birthday', ('age_year', 'age_month'), 'breed', 'sex', 'status', ('weight', 'weight_unit'), 'description', 'photo')
 
+
+@admin.register(Adoptation)
+class AdoptAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'interested_dog')
+    # search_fields = ('name', 'status')
+    # list_filter = ('sex', 'status', 'breed')
+    # fields = ('first_name', 'last_name', 'interested_dog')
     

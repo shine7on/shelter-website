@@ -8,5 +8,6 @@ urlpatterns = [
     path('dog', views.all_dogs_views, name='dogs'),
     path('dogapi', views.dog_list_api, name='dogs_api'),
     path('dog/<int:dog_id>/', views.dog_detail, name='dog_detail'),
-    path('form', views.adopt_form, name='adopt_form')
+    path('form', views.adopt_form, name='adopt_form'),
+    path('form/success/', views.submission_success, name='success')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -43,15 +43,22 @@ class Dog(models.Model):
     
 
 class Adoptation(models.Model):
-    HousingType = models.TextChoices('Housing', 'Own Rent')
+    HousingType = models.TextChoices('Housing', 'House Apartment Condo Townhouse Other')
+    YardType = models.TextChoices('Yard', 'yes_fenced yes_unfenced No')
+    StateType = models.TextChoices('State', 
+        'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'
+    )
 
     first_name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=100, blank=False)
     street = models.CharField(blank=False)
     city = models.CharField(blank=False)
+    state = models.CharField(default='', choices=StateType, blank=False)
+    zip = models.CharField(default='', blank=False)
     # state = models.CharField(blank=False, choices=)
     email = models.EmailField(blank=False)
     interested_dog = models.CharField(blank=False)
-    phone = models.IntegerField(max_length=10, blank=False)
-    housing = models.IntegerField(choices=HousingType)
-    signiture = models.ImageField()
+    phone = models.CharField(max_length=15, blank=False)
+    housing = models.CharField(default='', choices=HousingType)
+    yard = models.CharField(default='', choices=YardType)
+    comment = models.CharField(blank=True)
